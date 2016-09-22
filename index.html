@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>测试</title>
+	<meta charset="utf-8">
+	<script src="js/angular.min.js"></script>
+	<script type="text/javascript">
+
+		var app = angular.module("myApp",[]);
+		var username = "";
+		app.controller("appController",function($scope){
+			$scope.showName = function(){
+				alert($scope.username);
+			}
+		});
+		
+
+	</script>
+</head>
+<body ng-app="myApp">
+	<div ng-controller="appController">
+	用户名：<input type="text" name="message" ng-model="username"></input>
+	<input type="button" value="确定" ng-click="showName();"></input>
+	{{username}}
+	</div>
+</body>
+</html>
