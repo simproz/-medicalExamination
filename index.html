@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>在线测试</title>
+	<meta charset="utf-8">
+	<script src="js/jquery-1.7.2.min.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script src="js/angular.min.js"></script>
+	<script src="js/exam.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.css">
+	
+</head>
+<body ng-app="myApp">
+	<div ng-controller="appController" class="container">
+	<ul class="nav nav-tabs" id="myTab">
+  		<li class="active">
+    		<a href="#home"  data-toggle="tab">在线测试</a>
+  		</li>
+	    <li><a href="#other1"  data-toggle="tab">题库</a></li>
+  		<li><a href="#other2"  data-toggle="tab">其它</a></li>
+	</ul>
+	<div class="tab-content">
+		<div class="tab-pane fade in active" id="home">
+			<table >
+				<tbody ng-repeat="items in answers">
+					<tr>
+						<td><h5>{{$index+1+"、"+items.question+"："}}</h5></td>
+					</tr>
+					<tr ng-repeat="item in items.options">
+						<td><label><input type="radio" name="{{items.id}}" ng-model="items.select" value="{{item |optionFilter}}">{{item}}</input></label></td>
+						<!-- <div><radio-name></radio-name></div> -->
+					</tr>
+					<td ng-show="items.result" class="info"><font color="red">错误</font></td>
+				</tbody>
+					
+			</table>
+			<input type="button" value="提交" class="btn btn-info" ng-click="showName();"></input>
+		</div>
+	<div class="tab-pane fade" id="other1"> 
+	<pre>                      
+	1. 全科医疗的基本特征不包括 
+	A. 为社区居民提供连续性服务  B. 提供以病人为中心的服务 
+	C. 提供以社区为基础的服务   D. 提供以家庭为单位的服务 E. 提供以家庭病床为主的基层医疗服务 
+	2. 全科医学的基本原则不包括 
+	A. 以门诊为主体的照顾   B. 为个体提供从生到死的全过程照顾 
+	C. 为服务对象协调各种医疗资源   D. 提供以急诊室和家庭病床为主的服务 E. 提供使社区群众易于利用的服务 
+	3. 对“以社区为基础的照顾”描述正确的是 
+	A. 对辖区内全体居民进行健康登记  B. 在居民社区内设立全科医学诊室 
+	C. 以一定的人群健康需求为基础，提供个体和群体相结合的服务 
+	D. 对社区内所有居民的进行健康状况普查  E. 组成医-护-公卫团队每日巡回于居民区 
+	4. 对“以家庭为单位照顾”描述最佳的是 
+	A.全科医生将家庭访视作为其日常工作中的最主要内容 B.全科医生必须为社区内所有家庭建立家庭健康档案 
+	C.全科医生负责管理每个家庭所有成员疾病的诊疗及康复 D.全科医生应利用家庭资源进行健康与疾病的管理 
+	E.全科医生在接诊病人时首先应了解并记录其家庭情况 
+	5. 以下何种属性不是全科医疗与专科医疗的区别： 
+	A. 对服务对象责任的持续性与间断性   B. 处理疾病的轻重、常见与少见 
+	C. 对服务对象的责任心  D. 是否使用高新昂贵的医疗技术 E. 服务人口的多少与流动性 
+	6. 全科医生的工作方式，不包括 
+	A.以人为中心提供照顾   B.以家庭为单位提供照顾   C.提供机会性预防服务  
+	D.主要提供急诊和住院服务   E.以团队的形式提供所需服务
+</pre></div>
+	<div class="tab-pane fade" id="other2">其它</div>
+	
+</body>
+</html>
