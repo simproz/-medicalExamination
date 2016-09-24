@@ -3,6 +3,7 @@
 <head>
 	<title>在线测试</title>
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<script src="js/jquery-3.1.1.min.js"></script>
 	<script src="js/bootstrap.js"></script>
 	<script src="js/angular.min.js"></script>
@@ -63,13 +64,13 @@
 					  </ul>
 					</nav>
 				</div>
-				<div id="progess">
+				<div id="progess" class="pull-left visible-lg">
 					<p>答题进度</p>
 					<ul style="list-style: none">
 						<li ng-repeat="items in answers track by $index" >{{items.id+" "}}<span class="{{items | selectFilter}}"></span></li>
 					</ul>
 				</div>
-				<input type="button" value="确认提交" class="btn btn-info" ng-click="commit();" data-toggle="modal" data-target="#myModal"></input>
+				<input type="button" value="确认提交" class="btn btn-info" ng-click="commit();"></input>
 				<div>
 					<!-- 模态框（Modal） -->
 					<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -164,9 +165,6 @@
 				</div>
 			</div>
 		</div>
-		
-	</div>
-	<div>
 		
 	</div>
 </body>

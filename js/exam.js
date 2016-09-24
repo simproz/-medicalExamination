@@ -180,11 +180,13 @@ app.controller("appController",function($scope){
 	//提交
 	$scope.commit = function(){
 		if(examResult.passNum!=0){
+			$("#myModal").modal("show");
 			return;
 		}
 		if(!confirm("确认提交吗？")){
 			return;
 		}
+
 		//console.log(answers);
 		$.each($scope.answers_s,function(one){
 			var opts = answers_s[one];
@@ -197,6 +199,7 @@ app.controller("appController",function($scope){
 		});
 		examResult.score = examResult.passNum*2;
 		//alert("本次考试得分："+examResult.score);
+		$("#myModal").modal("show");
 	};
 
 });
