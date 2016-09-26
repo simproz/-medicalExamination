@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>在线测试</title>
+	<title>血液科考试</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<script src="js/jquery-3.1.1.min.js"></script>
@@ -11,7 +11,6 @@
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.css">
 	<style type="text/css">
-		#progess{position: fixed;left: 100px;top: 100px;}
 		td label{font-weight: 400;}
 	</style>
 </head>
@@ -21,36 +20,61 @@
 		<nav class="navbar navbar-default" role="navigation" >
 			<ul class="nav navbar-nav" id="myTab">
 				<li  role="presentation" class="active"><a data-toggle="tab" href="#home">首页</a></li>
-		  		<li  role="presentation" >
-		    		<a data-toggle="tab" id="exams" href="#exam">在线测试</a>
-		  		</li>
+		  		<li  role="presentation" ><a data-toggle="tab" id="exams" href="#exam">在线考试</a></li>
 			    <li  role="presentation"><a data-toggle="tab" href="#questions">题库</a></li>
 			</ul>
 		</nav>
 		
-		<div class="tab-content">
-			<div class="tab-pane fade table-responsive" id="exam">
-				<table class="tab">
-					<tbody ng-repeat="items in answers track by $index">
-						<th>
-							<td>
-								<strong><span ng-class="{'alert-danger':items.result}">{{items.id+"、"+items.question+"："}}</span></strong>
-							</td>
-							<td ng-show="items.result">
-								<span class="alert-danger glyphicon glyphicon-remove"></span>
-							</td>
-						</th>
-						<tr ng-repeat="item in items.options track by $index">
-							<td colspan="2">
-								<label>
-								<input type="radio" name="{{items.id}}" ng-model="items.select" value="{{item |optionFilter}}">{{item}}</input>
-								</label>
-							</td>
-						</tr>
-						
-					</tbody>
-						
-				</table>
+		<div class="tab-content ">
+			<div class="tab-pane fade in active col-lg-8 col-sm-offset-2" id="home" >
+				<div class="panel panel-default ">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							考试说明：
+						</h3>
+					</div>
+					<div class="panel-body">
+						<div class="well">
+							<p>40个单项选择题（每题2分）</p>
+							<p>5个多项选择题（每题4分）</p>
+							<p>总分为100分</p>
+						</div>
+						<div class="col-lg-offset-5 col-xs-offset-4">
+							<input type="button" value="开始考试" class="btn btn-info" onclick="start();">
+						</div>
+					</div>
+
+				</div>
+			</div><!--end home-->
+			<div class="tab-pane fade" id="exam">
+				<div>
+					<table class="tab">
+						<tbody ng-repeat="items in answersA track by $index">
+							<tr>
+								<td>
+									<strong><span ng-class="{'alert-danger':items.result}">{{items.id+"、"+items.question+"："}}</span></strong>
+								</td>
+								<td ng-show="items.result">
+									<span class="alert-danger glyphicon glyphicon-remove"></span>
+								</td>
+							</tr>
+							<tr ng-repeat="item in items.options track by $index" ng-if="items.answer.length==1">
+								<td colspan="2">
+									<label>
+									<input type="radio" name="{{items.id}}" ng-model="items.select" value="{{item |optionFilter}}">{{item}}</input>
+									</label>
+								</td>
+							</tr>
+							<tr ng-repeat="item in items.options track by $index" ng-if="items.answer.length!=1">
+								<td>
+									<label>
+									<input type="checkbox" name="{{items.id}}" ng-model="items.select[('s'+$index)]" value="{{item | optionFilter}}"> {{item}}
+									</label>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>			
 				<div>
 					<nav>
 					  <ul class="pagination">
@@ -64,15 +88,12 @@
 					  </ul>
 					</nav>
 				</div>
-				<div id="progess" class="pull-left visible-lg">
-					<p>答题进度</p>
-					<ul style="list-style: none">
-						<li ng-repeat="items in answers track by $index" >{{items.id+" "}}<span class="{{items | selectFilter}}"></span></li>
-					</ul>
+				<div class="">
+					<input type="button" value="答题完毕" class="btn btn-info " ng-click="commit();" style="margin-bottom: 20px;"></input>
 				</div>
-				<input type="button" value="确认提交" class="btn btn-info" ng-click="commit();"></input>
+				
+				<!-- 模态框（Modal） -->
 				<div>
-					<!-- 模态框（Modal） -->
 					<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
 							<div class="modal-content">
@@ -98,74 +119,23 @@
 						</div><!-- /.modal -->
 					</div>
 				</div>
-			</div>
+			</div><!--end exam-->
 			<div class="tab-pane fade" id="questions"> 
-				<pre>                      
-					1. 全科医疗的基本特征不包括 
-					A. 为社区居民提供连续性服务  B. 提供以病人为中心的服务 
-					C. 提供以社区为基础的服务   D. 提供以家庭为单位的服务 E. 提供以家庭病床为主的基层医疗服务 
-
-					2. 全科医学的基本原则不包括 
-					A. 以门诊为主体的照顾   B. 为个体提供从生到死的全过程照顾 
-					C. 为服务对象协调各种医疗资源   D. 提供以急诊室和家庭病床为主的服务 E. 提供使社区群众易于利用的服务 
-
-					3. 对“以社区为基础的照顾”描述正确的是 
-					A. 对辖区内全体居民进行健康登记  B. 在居民社区内设立全科医学诊室 
-					C. 以一定的人群健康需求为基础，提供个体和群体相结合的服务 
-					D. 对社区内所有居民的进行健康状况普查  E. 组成医-护-公卫团队每日巡回于居民区 
-
-					4. 对“以家庭为单位照顾”描述最佳的是 
-					A.全科医生将家庭访视作为其日常工作中的最主要内容 B.全科医生必须为社区内所有家庭建立家庭健康档案 
-					C.全科医生负责管理每个家庭所有成员疾病的诊疗及康复 D.全科医生应利用家庭资源进行健康与疾病的管理 
-					E.全科医生在接诊病人时首先应了解并记录其家庭情况 
-
-					5. 以下何种属性不是全科医疗与专科医疗的区别： 
-					A. 对服务对象责任的持续性与间断性   B. 处理疾病的轻重、常见与少见 
-					C. 对服务对象的责任心  D. 是否使用高新昂贵的医疗技术 E. 服务人口的多少与流动性 
-
-					6. 全科医生的工作方式，不包括 
-					A.以人为中心提供照顾   B.以家庭为单位提供照顾   C.提供机会性预防服务  
-					D.主要提供急诊和住院服务   E.以团队的形式提供所需服务
-				</pre>
-			</div>
-			<div class="tab-pane fade in active" id="home" style="width: 50%;margin-left: auto;margin-right: auto;">
-				<div class="panel panel-default">
-				    <div class="panel-heading">
-				        <h3 class="panel-title">
-				            考试选项：
-				        </h3>
-				    </div>
-				    <div class="panel-body">
-				    
-				    <div class="form-group">
-					    <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
-					    <div class="col-sm-10">
-					      <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
-					    </div>
-					  </div>
-					  <div class="form-group">
-					    <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
-					    <div class="col-sm-10">
-					      <input type="password" class="form-control col-sm-2" id="inputPassword3" placeholder="Password">
-					    </div>
-					  </div>
-					  <div class="form-group">
-					    <div class="col-sm-offset-2 col-sm-10">
-					      <div class="checkbox">
-					        <label>
-					          <input type="checkbox"> Remember me
-					        </label>
-					      </div>
-					      <input type="button" value="开始考试" class="btn btn-info" onclick="start();">
-					    </div>
-					
-					  </div>
-				    </div>
-		
+				<div class="tab-pane fade in active col-lg-8 col-sm-offset-2" id="home" >
+					<div class="panel panel-default ">
+						<div class="panel-heading">
+							<h3 class="panel-title">题库：</h3>
+						</div>
+						<div class="panel-body">
+							<h5>暂无</h5>
+						</div>
+					</div>
 				</div>
-			</div>
+			</div><!--end questions-->
+			
+		</div><!--end tab-content-->
+		<div class="footer">
 		</div>
-		
-	</div>
+	</div><!--end container-->
 </body>
 </html>
