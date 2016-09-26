@@ -13,9 +13,8 @@ app.filter("optionFilter",function(){
 
 
 app.controller("appController",function($scope){
-	var i = $("[name=quaz]").val();
 	
-	var answerA_s = $scope.answerA_s = [
+	var data = [
 {"question":"癌性发热属于哪种热型","options":["稽留热","弛张热","间歇热","不规则热"],"answer":"D"},
 {"question":"下列哪项不是温水擦浴的禁忌部位","options":["胸前区","腹部","足底","颈部两侧"],"answer":"D"},
 {"question":"0.1ml青霉素皮试的试验液含青霉素（）单位","options":["20-50","200-500","40-60","400-600"],"answer":"A"},
@@ -26,7 +25,7 @@ app.controller("appController",function($scope){
 {"question":"心三联不包括（ ）","options":["利多卡因","肾上腺素","阿托品","多巴胺"],"answer":"D"},
 {"question":"胸外心脏按压的频率（ ）次/分","options":["70-80","80-90","80-100","100-120"],"answer":"C"},
 {"question":"缺铁性贫血的病因有","options":["铁需要量增加而摄入量不足","铁吸收不良","铁丢失过多","以上都是"],"answer":"D"},
-{"question":"再生障碍性贫血的主要临床表现为","options":["A 进行性贫血","出血","感染","以上都是"],"answer":"D"},
+{"question":"再生障碍性贫血的主要临床表现为","options":["进行性贫血","出血","感染","以上都是"],"answer":"D"},
 {"question":"使用环磷酰胺易引起（ ），所以要指导患者多饮水并注意观察尿量及颜色，并使用美司那","options":["急性肾炎","急性膀胱炎","出血性肾炎","出血性膀胱炎"],"answer":"D"},
 {"question":"骨髓穿刺术后指导病人（ ）小时不要弄湿穿刺处","options":["12-24","24-36","36-48","48-72"],"answer":"D"},
 {"question":"鞘内注射化疗药后应嘱病人平卧","options":["4-6","6-8","2-4","8-10"],"answer":"A"},
@@ -62,19 +61,38 @@ app.controller("appController",function($scope){
 {"question":"下列关于口腔、牙龈出血的护理措施正确的有","options":["定时用氯己定或苏打水漱口液漱口","牙龈渗血时，可用肾上腺素棉球或明胶海绵片敷于齿龈","牙龈渗血时，可局部涂抹凝血酶粉剂、云南白药等止血","口腔内有陈旧血块时，会引起口臭，影响食欲，应该用牙刷、牙签清理干净","患者进餐前可用1％过氧化液体漱口"],"answer":["A","B","C","E"]},
 {"question":"血液病患者出现下列哪些临床表现，提示患者出现了颅内出血","options":["突然剧烈头痛","喷射性呕吐","视力模糊","头晕","昏迷"],"answer":["A","B","C","D","E"]}
 ];
+	//初始化随机排序
+	var initData = function(data){
+		var answerTmp = new Array();
+		$.each(data,function(i){
+			if(i<40){
+				var index = Math.floor(Math.random()*(40-answerTmp.length));
+				answerTmp[i] = data[index];
+				data.splice(index,1);
+			}else{
+				var index = Math.floor(Math.random()*(45-answerTmp.length));
+				answerTmp[i] = data[index];
+				data.splice(index,1);
+			}
+		});
+		return answerTmp;
+		console.log(answerTmp);
+	}
+
+	var answerA_s = $scope.answerA_s = initData(data);
+
 	//初始化数据
 	var init = (function(){
+		//选项前添加A、B、C、D
 		$.each(answerA_s,function(index,answer){
 			var opts = answer.options;
 			for(i=0;i<opts.length;i++){
 				opts[i] = String.fromCharCode(65+i)+"、"+opts[i];
 			}
-			//console.log(index);
 			answer["id"]=(index+1);
 			answer["select"]={};
 			answer["result"]=false;
 		});
-		//console.log(answers_s);
 	})();
 	
 	//初始化首页10条数据
